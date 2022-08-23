@@ -88,7 +88,6 @@ public class BaseAttrInfoServiceImpl extends ServiceImpl<BaseAttrInfoMapper, Bas
         if (category3Id != null && category3Id != 0){
             wrapper.or().eq("category_id",category3Id).eq("category_level",3);
         }
-
         return baseAttrInfoMapper.selectList(wrapper);
     }
 }
