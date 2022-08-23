@@ -12,14 +12,14 @@ import xyz.itmobai.gmall.product.service.BaseAttrValueService;
 import java.util.List;
 
 /**
- * @classname: xyz.itmobai.gmall.product.controller.AttrValueController
+ * @classname: xyz.itmobai.gmall.product.controller.BaseAttrValueController
  * @author: hao_bai
  * @date: 2022/8/23 0:09
  * @version: 1.0
  */
 @RestController
 @RequestMapping("/admin/product")
-public class AttrValueController {
+public class BaseAttrValueController {
 
     @Autowired
     BaseAttrValueService baseAttrValueService;

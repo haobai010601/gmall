@@ -9,14 +9,14 @@ import xyz.itmobai.gmall.product.service.BaseAttrInfoService;
 import java.util.List;
 
 /**
- * @classname: xyz.itmobai.gmall.product.controller.AttrInfoController
+ * @classname: xyz.itmobai.gmall.product.controller.BaseAttrInfoController
  * @author: hao_bai
  * @date: 2022/8/22 22:20
  * @version: 1.0
  */
 @RestController
 @RequestMapping("/admin/product")
-public class AttrInfoController {
+public class BaseAttrInfoController {
 
     @Autowired
     BaseAttrInfoService baseAttrInfoService;

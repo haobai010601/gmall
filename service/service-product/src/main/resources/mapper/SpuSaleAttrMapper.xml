@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.itmobai.gmall.product.mapper.SpuSaleAttrMapper">
+
+    <resultMap id="BaseResultMap" type="xyz.itmobai.gmall.model.product.SpuSaleAttr">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="spuId" column="spu_id" jdbcType="BIGINT"/>
+            <result property="baseSaleAttrId" column="base_sale_attr_id" jdbcType="BIGINT"/>
+            <result property="saleAttrName" column="sale_attr_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,spu_id,base_sale_attr_id,sale_attr_name
+    </sql>
+
+
+    <resultMap id="getSpuSaleAttrListBySpuId" type="xyz.itmobai.gmall.model.product.SpuSaleAttr" autoMapping="true">
+        <id column="aid" property="id"></id>
+        <collection property="spuSaleAttrValueList" ofType="xyz.itmobai.gmall.model.product.SpuSaleAttrValue" autoMapping="true">
+            <id column="vid" property="id"></id>
+        </collection>
+    </resultMap>
+
+    <select id="getSpuSaleAttrListBySpuId" resultMap="getSpuSaleAttrListBySpuId">
+        SELECT sa.id aid, sa.spu_id, sa.base_sale_attr_id,
+               sa.sale_attr_name, sv.id vid, sv.sale_attr_value_name
+        FROM spu_sale_attr sa
+        LEFT JOIN spu_sale_attr_value sv
+        ON sa.spu_id = sv.spu_id
+        AND sa.base_sale_attr_id = sv.base_sale_attr_id
+        WHERE sa.spu_id = #{spuId}
+    </select>
+</mapper>

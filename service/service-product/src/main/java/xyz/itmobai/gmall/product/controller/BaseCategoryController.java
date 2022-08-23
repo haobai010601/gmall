@@ -16,14 +16,14 @@ import xyz.itmobai.gmall.product.service.BaseCategory3Service;
 import java.util.List;
 
 /**
- * @classname: xyz.itmobai.gmall.product.controller.CategoryController
+ * @classname: xyz.itmobai.gmall.product.controller.BaseCategoryController
  * @author: hao_bai
  * @date: 2022/8/22 19:03
  * @version: 1.0
  */
 @RequestMapping("/admin/product")
 @RestController
-public class CategoryController {
+public class BaseCategoryController {
 
     @Autowired
     BaseCategory1Service baseCategory1Service;

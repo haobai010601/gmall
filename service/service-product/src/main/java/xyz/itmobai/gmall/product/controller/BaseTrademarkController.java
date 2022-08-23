@@ -7,15 +7,17 @@ import xyz.itmobai.gmall.common.result.Result;
 import xyz.itmobai.gmall.model.product.BaseTrademark;
 import xyz.itmobai.gmall.product.service.BaseTrademarkService;
 
+import java.util.List;
+
 /**
- * @classname: xyz.itmobai.gmall.product.controller.TrademarkController
+ * @classname: xyz.itmobai.gmall.product.controller.BaseTrademarkController
  * @author: hao_bai
  * @date: 2022/8/23 21:46
  * @version: 1.0
  */
 @RequestMapping("/admin/product")
 @RestController
-public class TrademarkController {
+public class BaseTrademarkController {
 
     @Autowired
     BaseTrademarkService baseTrademarkService;
@@ -51,4 +53,9 @@ public class TrademarkController {
         return Result.ok();
     }
 
+    @GetMapping("/baseTrademark/getTrademarkList")
+    public Result getTrademarkList(){
+        List<BaseTrademark> list = baseTrademarkService.list();
+        return Result.ok(list);
+    }
 }
