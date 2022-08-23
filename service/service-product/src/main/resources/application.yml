@@ -8,6 +8,11 @@ spring:
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
   zipkin:
-    base-url: http://linux104:9411/
+    base-url: http://linux104:9411
     sender:
       type: web
+minio:
+  base:
+    url: "http://linux104:9000"
+    accessKey: "JDFAA2PO0XGEHQG1WRHF"
+    secretKey: "+SNq3Sxk6kDuGV1fTwgSE5yoEDhdYL1DVCp+i7OK"
