@@ -31,5 +31,11 @@ public class SpuInfoController {
         return Result.ok(spuInfoPage);
     }
 
+    @PostMapping("/saveSpuInfo")
+    public Result saveSpuInfo(@RequestBody SpuInfo spuInfo){
+        spuInfoService.saveSpuInfo(spuInfo);
+        return Result.ok();
+    }
+
 
 }

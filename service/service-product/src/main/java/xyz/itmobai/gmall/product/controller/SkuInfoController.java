@@ -2,10 +2,7 @@ package xyz.itmobai.gmall.product.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import xyz.itmobai.gmall.common.result.Result;
 import xyz.itmobai.gmall.model.product.SkuInfo;
 import xyz.itmobai.gmall.product.service.SkuInfoService;
@@ -39,6 +36,13 @@ public class SkuInfoController {
     @GetMapping("/cancelSale/{skuId}")
     public Result cancelSale(@PathVariable("skuId")Long skuId){
         skuInfoService.cancelSale(skuId);
+        return Result.ok();
+    }
+
+
+    @PostMapping("/saveSkuInfo")
+    public Result saveSkuInfo(@RequestBody SkuInfo skuInfo){
+        skuInfoService.saveSkuInfo(skuInfo);
         return Result.ok();
     }
 }

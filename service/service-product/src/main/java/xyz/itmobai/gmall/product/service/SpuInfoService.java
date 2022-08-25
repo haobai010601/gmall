@@ -11,4 +11,6 @@ import xyz.itmobai.gmall.model.product.SpuInfo;
 */
 public interface SpuInfoService extends IService<SpuInfo> {
 
+    void saveSpuInfo(SpuInfo spuInfo);
+
 }

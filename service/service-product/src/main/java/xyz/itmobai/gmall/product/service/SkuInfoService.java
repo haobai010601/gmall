@@ -13,4 +13,6 @@ public interface SkuInfoService extends IService<SkuInfo> {
     void onSale(Long skuId);
 
     void cancelSale(Long skuId);
+
+    void saveSkuInfo(SkuInfo skuInfo);
 }
