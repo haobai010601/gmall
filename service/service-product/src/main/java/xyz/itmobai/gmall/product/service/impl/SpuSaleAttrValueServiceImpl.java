@@ -1,10 +1,14 @@
 package xyz.itmobai.gmall.product.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import xyz.itmobai.gmall.model.product.SpuSaleAttr;
 import xyz.itmobai.gmall.model.product.SpuSaleAttrValue;
 import xyz.itmobai.gmall.product.mapper.SpuSaleAttrValueMapper;
 import xyz.itmobai.gmall.product.service.SpuSaleAttrValueService;
+
+import java.util.List;
 
 /**
 * @author Hi

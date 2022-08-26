@@ -10,4 +10,5 @@ import xyz.itmobai.gmall.model.product.SpuSaleAttrValue;
 */
 public interface SpuSaleAttrValueService extends IService<SpuSaleAttrValue> {
 
+
 }

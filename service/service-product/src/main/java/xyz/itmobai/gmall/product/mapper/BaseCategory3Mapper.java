@@ -2,7 +2,9 @@ package xyz.itmobai.gmall.product.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 import xyz.itmobai.gmall.model.product.BaseCategory3;
+import xyz.itmobai.gmall.model.to.CategoryViewTo;
 
 /**
 * @author Hi
@@ -12,6 +14,7 @@ import xyz.itmobai.gmall.model.product.BaseCategory3;
 */
 public interface BaseCategory3Mapper extends BaseMapper<BaseCategory3> {
 
+    CategoryViewTo getCategoryViewTo(@Param("category3Id") Long category3Id);
 }
 
 

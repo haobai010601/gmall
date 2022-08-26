@@ -3,6 +3,9 @@ package xyz.itmobai.gmall.product.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import xyz.itmobai.gmall.model.product.BaseCategory1;
+import xyz.itmobai.gmall.model.to.CategoryTreeTo;
+
+import java.util.List;
 
 /**
 * @author Hi
@@ -11,6 +14,8 @@ import xyz.itmobai.gmall.model.product.BaseCategory1;
 * @Entity xyz.itmobai.gmall.product.domain.BaseCategory1
 */
 public interface BaseCategory1Mapper extends BaseMapper<BaseCategory1> {
+
+    List<CategoryTreeTo> getAllCategoryWithTree();
 
 }
 

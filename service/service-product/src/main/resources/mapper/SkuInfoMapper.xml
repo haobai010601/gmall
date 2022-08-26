@@ -23,4 +23,7 @@
         tm_id,category3_id,sku_default_img,
         is_sale
     </sql>
+    <select id="get1010Price" resultType="java.math.BigDecimal">
+        select price FROM sku_info where id = #{skuId}
+    </select>
 </mapper>

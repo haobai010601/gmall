@@ -1,7 +1,10 @@
 package xyz.itmobai.gmall.product.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 import xyz.itmobai.gmall.model.product.SkuInfo;
+
+import java.math.BigDecimal;
 
 /**
 * @author Hi
@@ -11,6 +14,7 @@ import xyz.itmobai.gmall.model.product.SkuInfo;
 */
 public interface SkuInfoMapper extends BaseMapper<SkuInfo> {
 
+    BigDecimal get1010Price(@Param("skuId") Long skuId);
 }
 
 

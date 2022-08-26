@@ -5,16 +5,13 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import xyz.itmobai.gmall.model.product.SkuAttrValue;
-import xyz.itmobai.gmall.model.product.SkuImage;
-import xyz.itmobai.gmall.model.product.SkuInfo;
-import xyz.itmobai.gmall.model.product.SkuSaleAttrValue;
+import xyz.itmobai.gmall.model.product.*;
+import xyz.itmobai.gmall.model.to.CategoryViewTo;
+import xyz.itmobai.gmall.model.to.SkuDetailTo;
 import xyz.itmobai.gmall.product.mapper.SkuInfoMapper;
-import xyz.itmobai.gmall.product.service.SkuAttrValueService;
-import xyz.itmobai.gmall.product.service.SkuImageService;
-import xyz.itmobai.gmall.product.service.SkuInfoService;
-import xyz.itmobai.gmall.product.service.SkuSaleAttrValueService;
+import xyz.itmobai.gmall.product.service.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -34,6 +31,10 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
     SkuAttrValueService skuAttrValueServices;
     @Autowired
     SkuSaleAttrValueService skuSaleAttrValueService;
+    @Autowired
+    BaseCategory3Service baseCategory3Service;
+    @Autowired
+    SpuSaleAttrService spuSaleAttrService;
 
     @Override
     public void onSale(Long skuId) {
@@ -86,6 +87,37 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
         });
         //批量保存skuSaleAttrValue
         skuSaleAttrValueService.saveBatch(skuSaleAttrValueList);
+    }
+
+    @Override
+    public SkuDetailTo getSkuDetail(Long skuId) {
+        SkuDetailTo skuDetailTo = new SkuDetailTo();
+        //获取skuInfo对象
+        SkuInfo skuInfo = skuInfoMapper.selectById(skuId);
+        //获取它属于哪个C3Id
+        Long category3Id = skuInfo.getCategory3Id();
+        //获取分类信息
+        CategoryViewTo categoryViewTo = baseCategory3Service
+                .getCategoryViewTo(category3Id);
+        //获取skuImageList
+        List<SkuImage> skuImageList = skuImageService.getSkuImage(skuId);
+        skuInfo.setSkuImageList(skuImageList);
+        //获取实时价格
+        BigDecimal price = get1010Price(skuId);
+        //获取Spu销售属性集合
+        List<SpuSaleAttr> saleAttrList = spuSaleAttrService
+                .getSaleAttrAndValueMarkSku(skuInfo.getSpuId(),skuId);
+
+        skuDetailTo.setSkuInfo(skuInfo);
+        skuDetailTo.setCategoryViewTo(categoryViewTo);
+        skuDetailTo.setPrice(price);
+        skuDetailTo.setSpuSaleAttrList(saleAttrList);
+        return skuDetailTo;
+    }
+
+    private BigDecimal get1010Price(Long skuId) {
+        BigDecimal price = skuInfoMapper.get1010Price(skuId);
+        return price;
     }
 }
 

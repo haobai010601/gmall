@@ -12,6 +12,7 @@ import xyz.itmobai.gmall.model.product.SpuSaleAttrValue;
 */
 public interface SpuSaleAttrValueMapper extends BaseMapper<SpuSaleAttrValue> {
 
+
 }
 
 

@@ -9,8 +9,30 @@
             <result property="name" column="name" jdbcType="VARCHAR"/>
             <result property="category2Id" column="category2_id" jdbcType="BIGINT"/>
     </resultMap>
-
     <sql id="Base_Column_List">
         id,name,category2_id
     </sql>
+
+    <resultMap id="getCategoryViewTo" type="xyz.itmobai.gmall.model.to.CategoryViewTo">
+        <id column="b1Id" property="category1Id"></id>
+        <result column="b1Name" property="category1Name"></result>
+        <result column="b2Id" property="category2Id"></result>
+        <result column="b2Name" property="category2Name"></result>
+        <result column="b3Id" property="category3Id"></result>
+        <result column="b3Name" property="category3Name"></result>
+    </resultMap>
+    <select id="getCategoryViewTo" resultMap="getCategoryViewTo">
+        SELECT b1.id b1Id,
+               b1.name b1Name,
+               b2.id b2Id,
+               b2.name b2Name,
+               b3.id b3Id,
+               b3.name b3Name
+        FROM base_category3 b3
+                 LEFT JOIN base_category2 b2
+                           ON b3.category2_id = b2.id
+                 LEFT JOIN base_category1 b1
+                           ON b2.category1_id = b1.id
+        WHERE b3.id = #{category3Id}
+    </select>
 </mapper>

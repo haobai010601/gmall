@@ -12,4 +12,31 @@
     <sql id="Base_Column_List">
         id,name
     </sql>
+
+    <resultMap id="CategoryWithTree" type="xyz.itmobai.gmall.model.to.CategoryTreeTo">
+        <id property="categoryId" column="id"></id>
+        <result property="categoryName" column="name"></result>
+        <collection property="categoryChild" ofType="xyz.itmobai.gmall.model.to.CategoryTreeTo">
+            <result property="categoryId" column="bc2Id"></result>
+            <result property="categoryName" column="bc2Name"></result>
+            <collection property="categoryChild" ofType="xyz.itmobai.gmall.model.to.CategoryTreeTo">
+                <result property="categoryId" column="bc3Id"></result>
+                <result property="categoryName" column="bc3Name"></result>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="getAllCategoryWithTree" resultMap="CategoryWithTree">
+        SELECT bc1.id,
+               bc1.name,
+               bc2.id bc2Id,
+               bc2.name bc2Name,
+               bc3.id bc3Id,
+               bc3.name bc3Name
+        FROM base_category1 bc1
+        LEFT JOIN base_category2 bc2
+                  ON bc1.id = bc2.category1_id
+        LEFT JOIN base_category3 bc3
+                  ON bc2.id = bc3.category2_id
+    </select>
 </mapper>

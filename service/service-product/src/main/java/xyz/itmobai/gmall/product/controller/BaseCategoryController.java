@@ -16,7 +16,7 @@ import xyz.itmobai.gmall.product.service.BaseCategory3Service;
 import java.util.List;
 
 /**
- * @classname: xyz.itmobai.gmall.product.controller.BaseCategoryController
+ * @classname: xyz.itmobai.gmall.product.controller.CategoryApi
  * @author: hao_bai
  * @date: 2022/8/22 19:03
  * @version: 1.0

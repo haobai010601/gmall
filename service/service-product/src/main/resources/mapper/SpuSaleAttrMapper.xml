@@ -32,4 +32,31 @@
         AND sa.base_sale_attr_id = sv.base_sale_attr_id
         WHERE sa.spu_id = #{spuId}
     </select>
+
+
+    <resultMap id="SaleAttrAndValueMarkSku" type="xyz.itmobai.gmall.model.product.SpuSaleAttr" autoMapping="true">
+        <id column="id" property="id"></id>
+        <!--<result column="sale_attr_name" property="saleAttrName"></result>
+        <result column="spu_id" property="spuId"></result>
+        <result column="base_sale_attr_id" property="baseSaleAttrId"></result>-->
+        <collection property="spuSaleAttrValueList" ofType="xyz.itmobai.gmall.model.product.SpuSaleAttrValue" autoMapping="true">
+            <id column="vid" property="id"></id>
+        </collection>
+    </resultMap>
+
+    <select id="getSaleAttrAndValueMarkSku" resultMap="SaleAttrAndValueMarkSku">
+        SELECT sa.*,
+            sv.id vid,
+            sv.`sale_attr_value_name`,
+            IF(skv.sale_attr_value_id  IS NULL,'0','1') AS is_checked
+        FROM spu_sale_attr sa
+        LEFT JOIN spu_sale_attr_value sv
+            ON sa.spu_id = sv.spu_id
+            AND sa.base_sale_attr_id = sv.base_sale_attr_id
+        LEFT JOIN sku_sale_attr_value skv
+            ON sv.id = skv.sale_attr_value_id
+            AND skv.sku_id = 40
+        WHERE sv.spu_id = 25
+        ORDER BY sa.id , sv.id
+    </select>
 </mapper>

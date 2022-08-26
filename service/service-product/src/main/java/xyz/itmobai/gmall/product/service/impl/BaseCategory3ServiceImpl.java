@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xyz.itmobai.gmall.model.product.BaseCategory3;
+import xyz.itmobai.gmall.model.to.CategoryViewTo;
 import xyz.itmobai.gmall.product.mapper.BaseCategory3Mapper;
 import xyz.itmobai.gmall.product.service.BaseCategory3Service;
 
@@ -27,6 +28,11 @@ public class BaseCategory3ServiceImpl extends ServiceImpl<BaseCategory3Mapper, B
         QueryWrapper<BaseCategory3> wrapper = new QueryWrapper<>();
         wrapper.eq("category2_id",category2Id);
         return baseCategory3Mapper.selectList(wrapper);
+    }
+
+    @Override
+    public CategoryViewTo getCategoryViewTo(Long category3Id) {
+        return baseCategory3Mapper.getCategoryViewTo(category3Id);
     }
 }
 
