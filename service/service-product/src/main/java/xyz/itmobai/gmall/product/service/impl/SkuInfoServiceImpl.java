@@ -107,15 +107,18 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
         //获取Spu销售属性集合
         List<SpuSaleAttr> saleAttrList = spuSaleAttrService
                 .getSaleAttrAndValueMarkSku(skuInfo.getSpuId(),skuId);
+        //查sku组合valueJson
+        String valueJson = spuSaleAttrService.getAllSkuSaleAttrValueJson(skuInfo.getSpuId());
 
         skuDetailTo.setSkuInfo(skuInfo);
         skuDetailTo.setCategoryViewTo(categoryViewTo);
         skuDetailTo.setPrice(price);
         skuDetailTo.setSpuSaleAttrList(saleAttrList);
+        skuDetailTo.setValuesSkuJson(valueJson);
         return skuDetailTo;
     }
 
-    private BigDecimal get1010Price(Long skuId) {
+    public BigDecimal get1010Price(Long skuId) {
         BigDecimal price = skuInfoMapper.get1010Price(skuId);
         return price;
     }

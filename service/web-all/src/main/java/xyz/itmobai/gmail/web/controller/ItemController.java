@@ -31,7 +31,7 @@ public class ItemController {
             model.addAttribute("price",data.getPrice());
             model.addAttribute("categoryView",data.getCategoryViewTo());
             model.addAttribute("spuSaleAttrList",data.getSpuSaleAttrList());
-            model.addAttribute("skuImage",data.getSkuInfo().getSkuImageList());
+            model.addAttribute("valuesSkuJson",data.getValuesSkuJson());//json
         }
         return "item/index";
     }
