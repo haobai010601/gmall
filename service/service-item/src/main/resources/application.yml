@@ -6,11 +6,16 @@ spring:
     base-url: http://linux104:9411/
     sender:
       type: web
+  #因为本微服务不需要数据库，所以排除数据库自动配置
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  redis:
+    host: linux104
+    port: 6379
+    password: mobai.010601
+app:
   thread-pool:
     core: 4
     max: 8
     queue-size: 2000
     keep-alive-time: 300
-  #因为本微服务不需要数据库，所以排除数据库自动配置
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration

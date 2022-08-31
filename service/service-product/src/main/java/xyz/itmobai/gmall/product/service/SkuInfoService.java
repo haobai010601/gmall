@@ -5,6 +5,7 @@ import xyz.itmobai.gmall.model.product.SkuInfo;
 import xyz.itmobai.gmall.model.to.SkuDetailTo;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
 * @author Hi
@@ -22,4 +23,7 @@ public interface SkuInfoService extends IService<SkuInfo> {
     SkuDetailTo getSkuDetail(Long skuId);
 
     BigDecimal get1010Price(Long skuId);
+
+    List<Long> findAllSkuId();
+
 }

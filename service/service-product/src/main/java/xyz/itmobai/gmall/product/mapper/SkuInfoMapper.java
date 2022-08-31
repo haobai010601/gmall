@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import xyz.itmobai.gmall.model.product.SkuInfo;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
 * @author Hi
@@ -15,6 +16,8 @@ import java.math.BigDecimal;
 public interface SkuInfoMapper extends BaseMapper<SkuInfo> {
 
     BigDecimal get1010Price(@Param("skuId") Long skuId);
+
+    List<Long> getAllSkuId();
 }
 
 

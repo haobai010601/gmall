@@ -1,6 +1,5 @@
 package xyz.itmobai.gmail.item.service;
 
-import xyz.itmobai.gmall.common.result.Result;
 import xyz.itmobai.gmall.model.to.SkuDetailTo;
 
 /**
@@ -10,5 +9,5 @@ import xyz.itmobai.gmall.model.to.SkuDetailTo;
  * @version: 1.0
  */
 public interface SkuDetailService {
-    Result<SkuDetailTo> getSkuDetail(Long skuId);
+    SkuDetailTo getSkuDetail(Long skuId);
 }

@@ -122,6 +122,11 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
         BigDecimal price = skuInfoMapper.get1010Price(skuId);
         return price;
     }
+
+    @Override
+    public List<Long> findAllSkuId() {
+       return skuInfoMapper.getAllSkuId();
+    }
 }
 
 

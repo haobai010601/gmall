@@ -11,7 +11,10 @@ spring:
     base-url: http://linux104:9411
     sender:
       type: web
-
+  redis:
+    host: linux104
+    port: 6379
+    password: mobai.010601
 app:
   minio:
     base:
