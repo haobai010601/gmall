@@ -1,5 +1,6 @@
-package xyz.itmobai.gmail.item.cache.impl;
+package xyz.itmobai.gamll.cache.service.impl;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.redisson.api.RBloomFilter;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
@@ -7,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import xyz.itmobai.gmail.item.cache.CacheOpsService;
-import xyz.itmobai.gmall.common.constant.SysRedisConst;
-import xyz.itmobai.gmall.common.util.Jsons;
+import xyz.itmobai.gamll.cache.constant.SysRedisConst;
+import xyz.itmobai.gamll.cache.service.CacheOpsService;
+import xyz.itmobai.gamll.cache.util.Jsons;
 
+import java.lang.reflect.Type;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -26,6 +30,8 @@ public class CacheOpsServiceImpl implements CacheOpsService {
     @Autowired
     RedissonClient redissonClient;
 
+    ScheduledExecutorService scheduledExecutor = Executors.newScheduledThreadPool(5);
+
     @Override
     public <T> T getCacheData(String cacheKey, Class<T> clazz) {
         String dataJson = redisTemplate.opsForValue().get(cacheKey);
@@ -37,9 +43,30 @@ public class CacheOpsServiceImpl implements CacheOpsService {
     }
 
     @Override
+    public <T> T getCacheData(String cacheKey, Type type) {
+        String dataJson = redisTemplate.opsForValue().get(cacheKey);
+        if (StringUtils.isEmpty(dataJson) || SysRedisConst.NULL_VAL.equals(dataJson)){
+            return null;
+        }
+        T t = Jsons.toObj(dataJson, new TypeReference<T>() {
+            @Override
+            public Type getType() {
+                return type;
+            }
+        });
+        return t;
+    }
+
+    @Override
     public Boolean bloomContains(Long skuId) {
         RBloomFilter<Long> bloomFilter = redissonClient.getBloomFilter(SysRedisConst.BLOOM_SKUID);
         return bloomFilter.contains(skuId);
+    }
+
+    @Override
+    public Boolean bloomContains(String bloomName, Object bloomValue) {
+        RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter(bloomName);
+        return bloomFilter.contains(bloomValue);
     }
 
     @Override
@@ -68,5 +95,18 @@ public class CacheOpsServiceImpl implements CacheOpsService {
                     SysRedisConst.SKUDETAIL_TTL,
                     TimeUnit.SECONDS);
         }
+    }
+
+    @Override
+    public void deleteCache(String cacheKey) {
+        redisTemplate.delete(cacheKey);
+    }
+
+    @Override
+    public void delayDeleteCache(String cacheKey) {
+        redisTemplate.delete(cacheKey);
+        scheduledExecutor.schedule(()->{
+            redisTemplate.delete(cacheKey);
+        },10L,TimeUnit.SECONDS);
     }
 }

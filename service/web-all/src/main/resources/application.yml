@@ -2,10 +2,6 @@ server:
   port: 7000
 
 spring:
-  zipkin:
-    base-url: http://linux104:9411/
-    sender:
-      type: web
   #设置thymeleaf的前缀后缀
   thymeleaf:
     prefix: classpath:/templates/

@@ -3,7 +3,6 @@ package xyz.itmobai.gmail.item;
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import xyz.itmobai.gmall.common.annotation.EnableRedisson;
 import xyz.itmobai.gmall.common.annotation.EnableThreadPool;
 
 /**
@@ -12,10 +11,11 @@ import xyz.itmobai.gmall.common.annotation.EnableThreadPool;
  * @date: 2022/8/26 22:17
  * @version: 1.0
  */
-@EnableRedisson
 @EnableThreadPool
 @SpringCloudApplication
-@EnableFeignClients
+@EnableFeignClients(basePackages = {
+        "xyz.itmobai.gmall.feign.product"
+})
 public class ItemApplication {
     public static void main(String[] args) {
         SpringApplication.run(ItemApplication.class);

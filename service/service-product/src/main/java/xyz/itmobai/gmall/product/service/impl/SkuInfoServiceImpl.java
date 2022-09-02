@@ -2,9 +2,13 @@ package xyz.itmobai.gmall.product.service.impl;
 
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.redisson.api.RBloomFilter;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import xyz.itmobai.gamll.cache.annotations.GmallCacheUpdate;
+import xyz.itmobai.gamll.cache.constant.SysRedisConst;
 import xyz.itmobai.gmall.model.product.*;
 import xyz.itmobai.gmall.model.to.CategoryViewTo;
 import xyz.itmobai.gmall.model.to.SkuDetailTo;
@@ -35,6 +39,8 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
     BaseCategory3Service baseCategory3Service;
     @Autowired
     SpuSaleAttrService spuSaleAttrService;
+    @Autowired
+    RedissonClient redissonClient;
 
     @Override
     public void onSale(Long skuId) {
@@ -87,6 +93,10 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
         });
         //批量保存skuSaleAttrValue
         skuSaleAttrValueService.saveBatch(skuSaleAttrValueList);
+
+        //向布隆中添加数据
+        RBloomFilter<Long> bloomFilter = redissonClient.getBloomFilter(SysRedisConst.BLOOM_SKUID);
+        bloomFilter.add(skuId);
     }
 
     @Override
@@ -126,6 +136,12 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
     @Override
     public List<Long> findAllSkuId() {
        return skuInfoMapper.getAllSkuId();
+    }
+
+    @Override
+    @GmallCacheUpdate(cacheKey = SysRedisConst.SKU_INFO_PREFIX + "#{#params[0].id}")
+    public void updateSkuInfo(SkuInfo skuInfo) {
+        skuInfoMapper.updateById(skuInfo);
     }
 }
 

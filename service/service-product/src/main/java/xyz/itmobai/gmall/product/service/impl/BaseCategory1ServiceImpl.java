@@ -3,6 +3,8 @@ package xyz.itmobai.gmall.product.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import xyz.itmobai.gamll.cache.annotations.GmallCache;
+import xyz.itmobai.gamll.cache.constant.SysRedisConst;
 import xyz.itmobai.gmall.model.product.BaseCategory1;
 import xyz.itmobai.gmall.model.to.CategoryTreeTo;
 import xyz.itmobai.gmall.product.mapper.BaseCategory1Mapper;
@@ -22,6 +24,10 @@ public class BaseCategory1ServiceImpl extends ServiceImpl<BaseCategory1Mapper, B
     @Autowired
     BaseCategory1Mapper baseCategory1Mapper;
 
+    @GmallCache(
+            cacheKey = SysRedisConst.CATEGORY_TREE_CACHE,
+            lockName = SysRedisConst.LOCK_CATEGORY_TREE
+    )
     @Override
     public List<CategoryTreeTo> getAllCategoryWithTree() {
         return baseCategory1Mapper.getAllCategoryWithTree();

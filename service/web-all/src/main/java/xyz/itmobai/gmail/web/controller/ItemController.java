@@ -5,8 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import xyz.itmobai.gmail.web.feign.SkuDetailFeignClient;
 import xyz.itmobai.gmall.common.result.Result;
+import xyz.itmobai.gmall.feign.item.ItemFeignClient;
 import xyz.itmobai.gmall.model.to.SkuDetailTo;
 
 /**
@@ -19,12 +19,12 @@ import xyz.itmobai.gmall.model.to.SkuDetailTo;
 public class ItemController {
 
     @Autowired
-    SkuDetailFeignClient skuDetailFeignClient;
+    ItemFeignClient itemFeignClient;
 
     @GetMapping("/{skuId}.html")
     public String item(@PathVariable("skuId") Long skuId,
                        Model model){
-        Result<SkuDetailTo> result = skuDetailFeignClient.getSkuDetail(skuId);
+        Result<SkuDetailTo> result = itemFeignClient.getSkuDetail(skuId);
         if (result.isOk()){
             SkuDetailTo data = result.getData();
             if (data == null){

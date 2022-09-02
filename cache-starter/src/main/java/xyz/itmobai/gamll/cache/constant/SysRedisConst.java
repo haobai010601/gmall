@@ -1,4 +1,4 @@
-package xyz.itmobai.gmall.common.constant;
+package xyz.itmobai.gamll.cache.constant;
 
 public class SysRedisConst {
 
@@ -10,4 +10,7 @@ public class SysRedisConst {
     public static final String SKU_INFO_PREFIX = "sku:info:";
 
     public static final String BLOOM_SKUID = "bloom:skuid";
+    public static final String LOCK_PREFIX = "lock:";
+    public static final String CATEGORY_TREE_CACHE = "category:tree";
+    public static final String LOCK_CATEGORY_TREE = "lock:category:tree";
 }

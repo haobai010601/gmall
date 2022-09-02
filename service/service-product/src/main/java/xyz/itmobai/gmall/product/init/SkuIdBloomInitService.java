@@ -5,7 +5,7 @@ import org.redisson.api.RBloomFilter;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import xyz.itmobai.gmall.common.constant.SysRedisConst;
+import xyz.itmobai.gamll.cache.constant.SysRedisConst;
 import xyz.itmobai.gmall.product.service.SkuInfoService;
 
 import javax.annotation.PostConstruct;

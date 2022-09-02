@@ -11,7 +11,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @version: 1.0
  */
 @SpringCloudApplication
-@EnableFeignClients
+@EnableFeignClients(basePackages = {
+        "xyz.itmobai.gmall.feign.product",
+        "xyz.itmobai.gmall.feign.item"
+})
 public class WebAllApplication {
 
     public static void main(String[] args) {

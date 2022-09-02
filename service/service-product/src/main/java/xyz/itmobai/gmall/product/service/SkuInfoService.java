@@ -26,4 +26,6 @@ public interface SkuInfoService extends IService<SkuInfo> {
 
     List<Long> findAllSkuId();
 
+    void updateSkuInfo(SkuInfo skuInfo);
+
 }

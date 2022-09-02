@@ -1,0 +1,36 @@
+spring:
+  shardingsphere:
+    datasource:
+      names: m,s1,s2
+      m:
+        type: com.zaxxer.hikari.HikariDataSource
+        driverClassName: com.mysql.jdbc.Driver
+        jdbcUrl: jdbc:mysql://linux104:3306/gmall_product?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+        username: root
+        password: 123456
+      s1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driverClassName: com.mysql.jdbc.Driver
+        jdbcUrl: jdbc:mysql://linux104:3307/gmall_product?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+        username: root
+        password: 123456
+      s2:
+        type: com.zaxxer.hikari.HikariDataSource
+        driverClassName: com.mysql.jdbc.Driver
+        jdbcUrl: jdbc:mysql://linux104:3308/gmall_product?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+        username: root
+        password: 123456
+    rules:
+      readwrite-splitting:
+        data-sources:
+          myds:
+            type: Static
+            props:
+              write-data-source-name: m
+              read-data-source-names: s1,s2
+            load-balancer-name: test
+        load-balancers:
+          test:
+            type: ROUND_ROBIN
+    props:
+      sql-show: true

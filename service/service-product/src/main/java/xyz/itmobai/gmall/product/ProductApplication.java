@@ -5,8 +5,8 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.context.annotation.Import;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import xyz.itmobai.gmall.common.annotation.EnableRedisson;
 import xyz.itmobai.gmall.common.config.Swagger2Config;
 
 /**
@@ -18,8 +18,8 @@ import xyz.itmobai.gmall.common.config.Swagger2Config;
 @Import(Swagger2Config.class)
 @MapperScan("xyz.itmobai.gmall.product.mapper")
 @SpringCloudApplication
+@EnableScheduling
 @EnableTransactionManagement
-@EnableRedisson
 public class ProductApplication {
     public static void main(String[] args) {
         SpringApplication.run(ProductApplication.class);

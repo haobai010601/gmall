@@ -45,4 +45,10 @@ public class SkuInfoController {
         skuInfoService.saveSkuInfo(skuInfo);
         return Result.ok();
     }
+
+    @PutMapping("/updateSkuInfo")
+    public Result updateSkuInfo(@RequestBody SkuInfo skuInfo){
+        skuInfoService.updateSkuInfo(skuInfo);
+        return Result.ok();
+    }
 }
